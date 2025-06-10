@@ -88,22 +88,21 @@ def count_nested_keys(data: dict) -> int:
         int: Total count of all keys at all nesting levels
     """
 
-    sum = 0
-    def recursive(number, info):
-    
-        for i in info.keys():
+    def recursive(info):
+        number = 0
+
+        for i in info.values():
+            print(i)
             number += 1
-            while type(i) == dict:
-                for x in i.keys():
-                    number += 1
-
+            if type(i) == dict:
+                recursive(i)
+                
         return number
-    
-    sum += recursive(sum, data)
 
-    return sum
+    return recursive(data)
 
-print(count_nested_keys({'a': {'b': {'c': {}}, 'd': {'e': {}}}}))
+
+# print(count_nested_keys({'a': {'b': {'c': {}}, 'd': {'e': {}}}}))
 
 def generate_collatz_sequence(start: int) -> list[int]:
     """
@@ -119,7 +118,23 @@ def generate_collatz_sequence(start: int) -> list[int]:
     Returns:
         list: The complete sequence including the starting number and ending at 1
     """
-    pass
+    newlist = []
+    
+    newlist.append(start)
+
+    while start != 1:
+        if start % 2 == 0:
+            start /= 2
+        else:
+            start = (start * 3) + 1
+        if len(newlist) > 200:
+            break
+
+        newlist.append(int(start))
+
+    return newlist
+print(generate_collatz_sequence(18))
+     
 
 
 def validate_sudoku_board(board: list[list[int]]) -> bool:

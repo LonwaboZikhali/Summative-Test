@@ -87,8 +87,23 @@ def count_nested_keys(data: dict) -> int:
     Returns:
         int: Total count of all keys at all nesting levels
     """
-    pass
 
+    sum = 0
+    def recursive(number, info):
+    
+        for i in info.keys():
+            number += 1
+            while type(i) == dict:
+                for x in i.keys():
+                    number += 1
+
+        return number
+    
+    sum += recursive(sum, data)
+
+    return sum
+
+print(count_nested_keys({'a': {'b': {'c': {}}, 'd': {'e': {}}}}))
 
 def generate_collatz_sequence(start: int) -> list[int]:
     """
